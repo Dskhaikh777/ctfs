@@ -24,7 +24,7 @@ However, I do not have access to this directory. From the /Vendor directory, I c
 
 I opened my browser, pasted the IP in the search bar, and the webpage loaded up. Then, I checked out the page source, and I found a nice green commented line!
 
-![page_source.png](page_source.png)
+![page_source.png](images/page_source.png)
 
 I received the mail.log file from the comment, where all the emails are stored. I thought it might contain some interesting information!
 
@@ -43,34 +43,34 @@ Here are the default credentials that will be added:
 
 After checking out the mail.log file, I figured out how to get started with the initial access. I went to the login page and used Burp to intercept the request. I tested it with a single quote and confirmed it was vulnerable to SQL injection. Then, I sent the request to the intruder and tried out various payloads to bypass the login. And guess what? I managed to gain initial access as a Dev user!
 
-![sql_intruder.png](sql_intruder.png)
+![sql_intruder.png](images/sql_intruder.png)
 
-![login_dev.png](login_dev.png)
+![login_dev.png](images/login_dev.png)
 
 As a dev user, I have the ability to modify scores. I intercepted the request using Burp Suite and attempted to delete the users table through SQL injection. The mail.log file indicates that if the users table gets corrupted or deleted, we can use the default credentials found in the log to log in as an admin.
 
-![users_table.png](users_table.png)
+![users_table.png](images/users_table.png)
 
-![users_del.png](users_del.png)
+![users_del.png](images/users_del.png)
 
 After successfully deleting the users table, I can now log in as an admin using the default credentials. After logging in as an admin, I obtained the first flag.
 
-![admin_flag.png](admin_flag.png)
+![admin_flag.png](images/admin_flag.png)
 
 On the admin home page, there is a section called "Profile." When I navigate to that page, I see several fields where I can input data. I discovered that any name I enter in the name field gets reflected on the admin home page. Since the application uses Twig, I tested for Server-Side Template Injection (SSTI) by using a simple payload like `{{7*7}}`, which resulted in 49. This indicates that the application is vulnerable to SSTI, allowing me to execute commands through Remote Code Execution (RCE). After traversing the directories, I found the second flag. Additionally, I can use a reverse shell to gain shell access.
 
-![final_ssti.png](final_ssti.png)
+![final_ssti.png](images/final_ssti.png)
 
-![final_flag.png](final_flag.png)
+![final_flag.png](images/final_flag.png)
 
-![completion.png](completion.png)
+![completion.png](images/completion.png)
 
 In the same section of the admin profile, I checked the name input field for other vulnerabilities and found that it is also susceptible to HTML injection and XSS.
 
-![htmli.png](htmli.png)
+![htmli.png](images/htmli.png)
 
-![html_out.png](html_out.png)
+![html_out.png](images/html_out.png)
 
-![xss.png](xss.png)
+![xss.png](images/xss.png)
 
-![strored_xss_out.png](strored_xss_out.png)
+![strored_xss_out.png](images/strored_xss_out.png)
