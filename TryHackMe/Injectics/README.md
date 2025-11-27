@@ -18,7 +18,7 @@ Service Info: Host: ip-10-65-185-75.ec2.internal; OS: Linux; CPE: cpe:/o:linux:l
 
 I also gave Gobuster a try to uncover the hidden directories.
 
-![gobuster.png](gobuster.png)
+![gobuster.png](images/gobuster.png)
 
 However, I do not have access to this directory. From the /Vendor directory, I confirmed that the application is using the Twig template engine and that the version is disclosed.
 
